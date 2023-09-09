@@ -26,14 +26,6 @@
 <body class="sub_page">
 <c:import url="layout/navbar.jsp" />
 
-<div class="container mt-4">
-    <form action="/menu/search" method="post" class="form-inline">
-        <label for="search" class="mr-5">Search By Name:</label>
-        <input type="search" class="form-control mr-2" placeholder="Type here to search" id="search" name="search" />
-        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-    </form>
-</div>
-
 <section class="food_section layout_padding">
     <div class="container">
         <div class="heading_container heading_center">

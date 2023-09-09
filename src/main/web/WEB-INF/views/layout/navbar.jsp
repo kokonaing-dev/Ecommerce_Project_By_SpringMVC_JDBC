@@ -48,15 +48,12 @@
                                 session.removeAttribute("admin");
                         %>
                 </c:if>
-        </div>
-                <div>
-                <form id="app" action="#">
-                        <label :data-state="state" for="search">
-                                <input type="text" placeholder="Search" @click="state = 'opan'" @blur="state='close'"/>
-                                <i class="fa fa-search" @click="" aria-hidden="true"></i>
-                        </label>
+
+                <form action="/menu/search" method="post" class="form-inline">
+                        <input type="search" class="form-control mr-2" placeholder="Search menu by name" id="search" name="search" />
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i></button>
                 </form>
-                </div>
+       </div>
         </div>
         </nav>
         </div>

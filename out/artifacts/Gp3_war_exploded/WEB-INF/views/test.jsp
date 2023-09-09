@@ -5,12 +5,11 @@
 
 <p>This is a test page for every condition</p>
 
-<p>Teset for github</p>
+<h1>Hello Testing 1,2,3</h1>
 
-<button type="button" class="btn btn-primary" onclick="location.href='/admin/category_create'">Category Create</button>
-<br>
-<br>
-<button type="button" class="btn btn-primary" onclick="location.href='/admin/menu_create'">Menu Create</button>
+<p>There is something to do...</p>
 
+
+<p>Late night with sayr gyi myar</p>
 
 <c:import url="layout/footer.jsp"/>

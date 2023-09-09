@@ -48,14 +48,12 @@
                                 session.removeAttribute("admin");
                         %>
                 </c:if>
-        </div>
-                <div>
-                <form class="form-inline">
-                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                <i class="fa fa-search"></i>
-                        </button>
+                
+                <form action="/menu/search" method="post" class="form-inline">
+                        <input type="search" class="form-control mr-2" placeholder="Search menu by name" id="search" name="search" />
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i></button>
                 </form>
-                </div>
+       </div>
         </div>
         </nav>
         </div>

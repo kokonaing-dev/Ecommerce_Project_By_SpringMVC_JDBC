@@ -101,17 +101,19 @@ public class MenuController {
         return "menu";
     }
 
-//    //search
-//    @GetMapping("/menu/search")
-//    public String searchMenuGet(){
-//        return "menu";
-//    }
-//    @PostMapping("/menu/search")
-//    public String searchMenuPost(@RequestParam("search") String search , Model model){
-//        List<Menu> menus = menuImpl.searchMenu(search);
-//        model.addAttribute("menu",menus);
-//        return "menu";
-//    }
+    //search
+    @GetMapping("/menu/search")
+    public String searchMenuGet(){
+        return "menu";
+    }
+    @PostMapping("/menu/search")
+    public String searchMenuPost(@RequestParam("search") String search , Model model){
+        List<Category> categories = categoryImpl.getAllCategories();
+        model.addAttribute("categories",categories);
+        List<Menu> menus = menuImpl.searchMenu(search);
+        model.addAttribute("menu",menus);
+        return "menu";
+    }
 
 
     // menu view by category

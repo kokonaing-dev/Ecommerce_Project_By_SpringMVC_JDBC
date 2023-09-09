@@ -5,6 +5,11 @@
 
 <p>This is a test page for every condition</p>
 
-<h1>Hello Testing 1 ,2 ,3 </h1>
+<h1>Hello Testing 1,2,3</h1>
+
+<p>There is something to do...</p>
+
+
+<p>Late night with sayr gyi myar</p>
 
 <c:import url="layout/footer.jsp"/>

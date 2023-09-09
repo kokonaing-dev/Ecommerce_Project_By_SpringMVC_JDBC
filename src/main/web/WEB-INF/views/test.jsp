@@ -7,4 +7,6 @@
 
 <h1>Hello Testing 1,2,3</h1>
 
+<p>There is something to do...</p>
+
 <c:import url="layout/footer.jsp"/>

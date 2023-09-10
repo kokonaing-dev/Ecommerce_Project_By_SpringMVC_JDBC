@@ -12,4 +12,6 @@
 
 <p>Late night with sayr gyi myar</p>
 
+<p>Win ston s paw</p>
+
 <c:import url="layout/footer.jsp"/>

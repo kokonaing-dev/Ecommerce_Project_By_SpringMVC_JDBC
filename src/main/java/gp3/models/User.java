@@ -20,14 +20,14 @@ public class User {
     private String password;
 
 
-    private String authority;
+    private int role;
 
-    public String getAuthority() {
-        return authority;
+    public int getRole() {
+        return role;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public User() {
@@ -38,11 +38,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, String email, String password,  String authority) {
+    public User(String name, String email, String password,  int role) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.authority = authority;
+        this.role = role;
     }
 
     public int getId() {
@@ -85,7 +85,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", authority='" + authority + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

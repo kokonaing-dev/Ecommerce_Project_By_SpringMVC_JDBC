@@ -14,6 +14,7 @@ public class Menu {
     private String content;
     private String image;
     private int category_id;
+    private String category_name;
 
     @Transient
     private MultipartFile file;
@@ -83,5 +84,26 @@ public class Menu {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", item='" + item + '\'' +
+                ", price=" + price +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", category_id=" + category_id +
+                ", file=" + file +
+                '}';
     }
 }

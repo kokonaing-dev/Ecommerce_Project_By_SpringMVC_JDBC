@@ -32,4 +32,24 @@ public class PageController {
         return "menu/card";
     }
 
+    @RequestMapping("/testOne")
+    public String testOne(){
+        return "testOne";
+    }
+
+    @RequestMapping("/payment")
+    public String payment(){
+        return "payment";
+    }
+
+    @RequestMapping("/invoice")
+    public String invoice(){
+        return "invoice";
+    }
+
+    @RequestMapping("/admin_home")
+    public String adminHome(){
+        return "admin/admin_home";
+    }
+
 }

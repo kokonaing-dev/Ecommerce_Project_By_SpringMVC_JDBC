@@ -23,7 +23,7 @@
         <td></td>
         <td></td>
         <td colspan="5">
-            <a href="/checkout?id=${user.id}">
+            <a href="/order">
                 <button class="btn btn-success btn-sm">Order Now</button>
             </a>
         </td>

@@ -41,14 +41,15 @@
                 <c:if test="${empty admin || empty user}">
                         <a href="/login" class="user_link"> <i class="fa fa-user" aria-hidden="true"></i> </a>
                 </c:if>
+
                 <c:if test="${!empty admin || !empty user}">
                         <a href="/logout" class="user_link"><i class="fa fa-arrow-right" ></i></a>
                         <%
                                 session.removeAttribute("admin");
-                                session.removeAttribute("admin");
+                                session.removeAttribute("user");
                         %>
                 </c:if>
-                
+
                 <form action="/menu/search" method="post" class="form-inline">
                         <input type="search" class="form-control mr-2" placeholder="Search menu by name" id="search" name="search" />
                         <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i></button>
@@ -59,43 +60,4 @@
         </div>
         </header>
         <!-- end header section -->
-        </div>
-
-        <div class="container my-5">
-                <c:if test="${!empty msgError}">
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong class="text-white">${msgError}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                                <%
-                                        session.removeAttribute("msgError");
-                                %>
-                </c:if>
-
-                <c:if test="${!empty msgSuccess}">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong class="text-white">${msgSuccess}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <%
-                                session.removeAttribute("msgSuccess");
-                        %>
-                </c:if>
-
-                <c:if test="${!empty msgPwError}">
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong class="text-white">${msgPwError}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                                <%
-            session.removeAttribute("msgPwError");
-        %>
-                </c:if>
-
         </div>

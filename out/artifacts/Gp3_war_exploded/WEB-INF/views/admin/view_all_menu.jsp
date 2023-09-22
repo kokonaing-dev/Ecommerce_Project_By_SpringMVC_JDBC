@@ -30,16 +30,16 @@
         <c:forEach  items="${menu}" var="menu" varStatus="loop">
             <tr>
                 <td>${loop.index+1}</td>
-                <td>${menu.product_name}</td>
-                <td>${menu.product_price}</td>
+                <td>${menu.item}</td>
+                <td>${menu.price}</td>
                 <td>
-                    <img src="../assets/imgs/${menu.product_image}" alt="no img" width="40" height="40">
+                    <img src="../assets/imgs/${menu.image}" alt="no img" width="40" height="40">
                 </td>
-                <td>${menu.category}</td>
-                <td>${menu.product_content}</td>
-                <td><a href="/admin/menu/delete?id=${menu.id}">    <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                <td>${menu.category_name}</td>
+                <td>${menu.content}</td>
+                <td><a href="/admin/menu_update?id=${menu.id}">    <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                 </a> </td>
-                <td><a href="/admin/menu/update?id=${menu.id}">    <button type="button" class="btn btn-primary"><i class="fa fa-sticky-note"></i></button>
+                <td><a href="/admin/menu_update?id=${menu.id}">    <button type="button" class="btn btn-primary"><i class="fa fa-sticky-note"></i></button>
                 </a> </td>
             </tr>
         </c:forEach>

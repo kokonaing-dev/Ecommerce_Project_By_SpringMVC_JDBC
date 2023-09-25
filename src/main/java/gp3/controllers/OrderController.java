@@ -8,10 +8,7 @@ import gp3.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,12 +108,12 @@ public class OrderController {
         System.out.println(address +" "+phone);
         int result = orderImpl.updateNullAddressAndPhone(address,phone);
 
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");//for user_id that login
-        System.out.println(user);
-
-        List<Orders> orders = orderImpl.getOneOrderByUser_id(user.getId());
-        model.addAttribute("orders",orders);//orderList to deliver
+//        HttpSession session = request.getSession();
+//        User user = (User) session.getAttribute("customer");//for user_id that login
+//        System.out.println(user);
+//
+//        List<Orders> orders = orderImpl.getOneOrderByUser_id(user.getId());
+//        model.addAttribute("orders",orders);//orderList for  deliver-process
 
         List<OrderDetail> orderDetailList = orderDetailImpl.getAllOrders();
         model.addAttribute("orderDetailList",orderDetailList);
@@ -148,5 +145,11 @@ public class OrderController {
 //
 //        return "menu/receipt";
 //    }
+
+    @GetMapping("/invoice")
+    public String invoice(){
+
+        return "invoice";
+    }
 
 }

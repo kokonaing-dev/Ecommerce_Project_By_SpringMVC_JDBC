@@ -12,5 +12,6 @@
 </head>
 <body>
 <h1>Test One , again</h1>
+<p>User : ${user}</p>
 </body>
 </html>

@@ -3,6 +3,9 @@ package gp3.models;
 import gp3.validators.VaildCustom;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Component
@@ -10,24 +13,26 @@ public class User {
 
     private int id;
 
-    @Size(min =4 ,max =20 ,message = "Name must be between 5 and 20")
+//    @NotNull(message = "is required")
+//    @Size(min =1 ,max =20 ,message = "Name must be between 1 and 20")
     private String name;
 
-    @VaildCustom(min =6 ,message = "Email length must be at least 6")
+//    @NotEmpty(message = "Email cannot be empty")
+//    @Email(message = "Invalid email format")
     private String email;
 
-    @VaildCustom(min =6 ,message = "Password length must be at least 6")
+//    @NotEmpty(message = "Password cannot be empty")
+//    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
+    private String role;
 
-    private String authority;
-
-    public String getAuthority() {
-        return authority;
+    public String getRole() {
+        return role;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public User() {
@@ -38,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, String email, String password,  String authority) {
+    public User(String name, String email, String password,  String role) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.authority = authority;
+        this.role = role;
     }
 
     public int getId() {
@@ -85,7 +90,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", authority='" + authority + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

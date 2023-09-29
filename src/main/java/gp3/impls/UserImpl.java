@@ -31,7 +31,7 @@ public class UserImpl implements UserDao {
                 user1.setName(rs.getString("name"));
                 user1.setEmail(rs.getString("email"));
                 user1.setPassword(rs.getString("password"));
-                user1.setAuthority(rs.getString("authority"));
+                user1.setRole(rs.getString("role"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,13 +44,13 @@ public class UserImpl implements UserDao {
     public int createUser(User user) {
         int status = 0 ;
         Connection con = DBHelpers.getInstance().getConnection();
-        String query = "INSERT INTO user (name,email,password,authority) VALUES (?,?,?,?)" ;
+        String query = "INSERT INTO user (name,email,password,role) VALUES (?,?,?,?)" ;
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1,user.getName());
             ps.setString(2,user.getEmail());
             ps.setString(3,user.getPassword());
-            ps.setString(4,user.getAuthority());
+            ps.setString(4,user.getRole());
             status=ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class UserImpl implements UserDao {
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setAuthority(rs.getString("authority"));
+                user.setRole(rs.getString("role"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -97,36 +97,12 @@ public class UserImpl implements UserDao {
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
-                user.setAuthority(rs.getString("authority"));
+                user.setRole(rs.getString("role"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
     }
-
-
-//    public User getUserByPassword(User user) {
-//        User user1 = null;
-//        ResultSet rs ;
-//        Connection connection = DBHelpers.getInstance().getConnection();
-//        String query = "SELECT * FROM user WHERE password=?" ;
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(query);
-//            ps.setString(1,user.getPassword());
-//            rs = ps.executeQuery();
-//            while (rs.next()){
-//                user1 = new User();
-//                user1.setId(rs.getInt("id"));
-//                user1.setName(rs.getString("name"));
-//                user1.setEmail(rs.getString("email"));
-//                user1.setPassword(rs.getString("password"));
-//                user1.setAuthority(rs.getString("authority"));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return user1;
-//    }
 
 }

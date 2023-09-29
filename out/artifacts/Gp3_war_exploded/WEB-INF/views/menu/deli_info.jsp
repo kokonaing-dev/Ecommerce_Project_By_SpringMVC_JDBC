@@ -10,17 +10,17 @@
 <div class="container">
     <h4 style="color: green  " align="center">Thank You</h4>
     <div class="container">
-    <form:form method="post" action="/updateAddPh" >
+    <form:form method="post" action="/updateAddPh" modelAttribute="order">
         <div>
         <h2 style="font-family: Open Sans">Enter your info to deliver</h2>
         </div>
         <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address"  placeholder="N0.22 LanMaTaw Yangon" name="address" />
+        <form:input type="text" class="form-control" id="address"  placeholder="N0.22 LanMaTaw Yangon" path="address" />
         </div>
         <div class="form-group">
         <label for="phone">Phone</label>
-        <input type="text" class="form-control" id="phone" placeholder="0949500123" name="phone" />
+        <form:input type="text" class="form-control" id="phone" placeholder="0949500123" path="phone"/>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form:form>

@@ -147,6 +147,33 @@ public class MenuImpl implements MenuDao {
         return menus;
     }
 
+    public List<Menu> getAllMenuForDisplay() {
+        ResultSet rs ;
+        List<Menu> menus = new ArrayList<>();
+        Connection connection = DBHelpers.getInstance().getConnection();
+        String query = "SELECT * FROM menu_item INNER JOIN category ON menu_item.category_id = category.id";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            rs =  ps.executeQuery();
+            while (rs.next()){
+                Menu menu = new Menu();
+                menu.setId(rs.getInt("id"));
+                menu.setItem(rs.getString("item"));
+                menu.setPrice(rs.getInt("price"));
+                menu.setContent(rs.getString("content"));
+                menu.setImage(rs.getString("image"));
+                menu.setCategory_id(rs.getInt("category_id"));
+                menu.setCategory_name(rs.getString("name"));
+                menus.add(menu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return menus ;
+    }
+
+
+
     //extract method for setting database value to less code complexion
     private void setMenu(Menu menu, PreparedStatement ps) throws SQLException {
         ps.setString(1, menu.getItem());

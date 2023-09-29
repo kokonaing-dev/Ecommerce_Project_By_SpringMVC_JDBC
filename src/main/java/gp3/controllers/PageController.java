@@ -32,4 +32,8 @@ public class PageController {
         return "menu/card";
     }
 
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
 }

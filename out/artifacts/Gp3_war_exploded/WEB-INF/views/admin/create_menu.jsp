@@ -10,31 +10,31 @@
 
         <div class="form-group">
             <label for="product_name">Product Name</label>
-            <form:input type="text" class="form-control" id="product_name"  name="product_name"  path="item"/>
+            <form:input type="text" class="form-control" id="product_name"    path="item"/>
         </div>
         <br>
         <div class="form-group">
             <label for="product_price">Price</label>
-            <form:input type="text" class="form-control" id="product_price" name="product_price"  path="price"/>
+            <form:input type="text" class="form-control" id="product_price"   path="price"/>
         </div>
         <br>
         <div class="form-group">
             <label for="category">Category</label>
-            <form:select id="category" name="category" path="category_id">
+            <form:select id="category" path="category_id">
                 <c:forEach items="${categories}" var="cat" >
-                    <option value="${cat.id}">${cat.name}</option>
+                    <form:option value="${cat.id}" label="${cat.name}"/>
                 </c:forEach>
             </form:select>
         </div>
         <br>
         <div class="form-group"><!--image-->
-            File :
-            <form:input type="file" class="form-control" id="file"  name="file"  path="file"/>
+            <label for="file">Image</label>
+            <form:input type="file" class="form-control" id="file" path="file"/>
         </div>
         <br>
         <div class="form-group"><!--product-details-->
             <label for="product_content">Content</label>
-            <form:textarea class="form-control" id="product_content"  name="product_content" rows="2"  path="content" />
+            <form:textarea class="form-control" id="product_content"   rows="2"  path="content" />
         </div>
         <br>
         <button type="submit" class="btn btn-primary">Create</button>

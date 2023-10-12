@@ -3,7 +3,7 @@ function checkout() {
     console.log(items);
 
     $.ajax({
-        url: "/checkout", //to card controller
+        url: "/order", //to order
         type: "post",
         data: {
             items : JSON.stringify(items)//items we catched

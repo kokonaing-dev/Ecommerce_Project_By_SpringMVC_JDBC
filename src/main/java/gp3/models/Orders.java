@@ -2,28 +2,49 @@ package gp3.models;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 public class Orders {
 
-    private int id , count , price ;
-    private String product_name ;
-    private int cust_id ;
+    private int id ;
+    private Date date;
+    private double total ;
+    private String address;
+    private String phone;
+    private int user_id;
 
-    @Transient
-    private String created_up;
-
-    private boolean enabled;
-
-    private String address ;
-
-    private String phone ;
-
-    public boolean isEnabled() {
-        return enabled;
+    public Orders() {
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public Orders(double total,String address ,String phone , int user_id) {
+        this.total = total;
+        this.address = address ;
+        this.phone = phone ;
+        this.user_id = user_id ;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public String getAddress() {
@@ -42,61 +63,11 @@ public class Orders {
         this.phone = phone;
     }
 
-    public Orders() {
+    public int getUser_id() {
+        return user_id;
     }
 
-    public Orders(String product_name, int count, int price, int cust_id) {
-        this.product_name = product_name;
-        this.count = count;
-        this.price = price;
-        this.cust_id = cust_id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getProduct_name() {
-        return product_name;
-    }
-
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
-
-    public int getCust_id() {
-        return cust_id;
-    }
-
-    public void setCust_id(int cust_id) {
-        this.cust_id = cust_id;
-    }
-
-    public String getCreated_up() {
-        return created_up;
-    }
-
-    public void setCreated_up(String created_up) {
-        this.created_up = created_up;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 }

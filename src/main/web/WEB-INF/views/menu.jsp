@@ -28,6 +28,16 @@
 
 <section class="food_section layout_padding">
     <div class="container">
+
+
+        <c:if test="${!empty msgSuccess}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong class="text-white">${msgSuccess}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </c:if>
         <div class="heading_container heading_center">
             <h2>
                 Our Menu
@@ -56,13 +66,15 @@
                                         <h6>Price : $${menu.price} kyats</h6>
                                     </div>
                                     <div class="add-to-cart">
-                                        <c:if test="${!empty user}">
+
+                                        <c:if test="${!empty customer}">
                                             <button class="add-to-cart-button" onclick="addItemToDBWithAlert(${menu.id})">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 Add to Cart
                                             </button>
                                         </c:if>
-                                        <c:if test="${empty user}">
+
+                                        <c:if test="${empty customer}">
                                             <button class="add-to-cart-button"  data-toggle="modal" data-target="#customModal">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 Add to Cart
@@ -91,8 +103,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <a href="/login">
-                                <button type="button" class="btn btn-primary">Login</button> </a>
+                                <a href="/login"><button type="button" class="btn btn-primary">Login</button> </a>
                             </div>
                         </div>
                     </div>

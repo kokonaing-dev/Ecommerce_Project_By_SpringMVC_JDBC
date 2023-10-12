@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,6 +30,14 @@ public class MenuController {
     @Autowired
     private CategoryImpl categoryImpl;
 
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ModelAndView handleMaxSizeException(MaxUploadSizeExceededException exc) {
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("message", "File size exceeded the limit.");
+        return modelAndView;
+    }
+
+
     //create menu
     @GetMapping("/admin/menu_create")
     public String createMenuGet(Model model) {
@@ -40,17 +50,26 @@ public class MenuController {
     public String creatMenuPost(@ModelAttribute("menu") Menu menu, Model model,
                                 HttpServletRequest request) {
         MultipartFile file = menu.getFile();
+        System.out.println("user input " + menu.getFile());
         if (file != null && !file.isEmpty()) {
-            String image = saveImage(file, request);
-            menu.setImage(image);
+
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename != null && (originalFilename.endsWith(".jpg") || originalFilename.endsWith(".jpeg") || originalFilename.endsWith(".png") || originalFilename.endsWith(".gif"))) {
+                String image = saveImage(file, request);
+                menu.setImage(image);
+            }
+            else {
+                return "redirect:/test";
+            }
+            System.out.println(menu);
+            System.out.println("after save " + menu.getImage());
         }
-        System.out.println(menu);
         int status = menuImpl.createMenu(menu);
         if (status > 0) {
             System.out.println("Save Successfully");
             return "redirect:/menu";
         }
-        return "redirect:/test";
+            return "redirect:/test";
     }
 
     //delete menu
@@ -68,6 +87,8 @@ public class MenuController {
     //update menu
     @GetMapping("/admin/menu_update")
     public String updateMenuGet(@RequestParam("id")int id  ,Model model){
+        List<Category> categories = categoryImpl.getAllCategories();
+        model.addAttribute("categories",categories);
         Menu menu = menuImpl.getMenuById(id);
         model.addAttribute("menu",menu);
         return "admin/edit_menu";
@@ -127,20 +148,41 @@ public class MenuController {
         return "menu";
     }
 
+    //view menu by admin
+    @GetMapping("/admin/menu")
+    public String viewMenuByAdmin(Model model, HttpServletRequest request) {
+        List<Menu> menus = menuImpl.getAllMenuForDisplay();
+        model.addAttribute("menu", menus);
+        return "admin/view_all_menu";
+    }
+
 
     //image save extract method
-    private String saveImage(MultipartFile file, HttpServletRequest request){
-        String image = System.currentTimeMillis() + ".png" ;
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        Path path = Paths.get(rootDirectory + "/WEB-INF/assets/imgs/" + image);
+    private String saveImage(MultipartFile file, HttpServletRequest request)  {
+
         if (file != null && !file.isEmpty()) {
+
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+
+            String image = System.currentTimeMillis() + fileExtension ;
+
+            String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+            Path path = Paths.get(rootDirectory + "/WEB-INF/assets/imgs/" + image);
             try {
                 file.transferTo(new File(path.toString()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return image ;
         }
-        return image ;
+        else {
+            return null;
+        }
     }
+
+
+
+
 
 }

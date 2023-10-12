@@ -8,11 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,12 +30,12 @@ public class UserController {
 
     //admin login
     @GetMapping("/login")
-    private String loginGet(Model model){
+    public String showLoginForm(Model model) {
         model.addAttribute("user",new User());
         return "user/login";
     }
     @PostMapping("/login")
-    private String loginPost(@ModelAttribute("user")@Validated User user, BindingResult brs , HttpServletRequest request){
+    private String loginForm(@ModelAttribute("user")@Validated User user, BindingResult brs , HttpServletRequest request , Model model , RedirectAttributes redirectAttributes){
         HttpSession session = request.getSession();
         User userFromDb = null ;
         if (brs.hasErrors()){
@@ -46,46 +49,51 @@ public class UserController {
 
         if (userFromDb == null ){
             System.out.println("can't enter");
-            session.setAttribute("msgError","You Look Like a new Customer Here! Sign up First!");
+            redirectAttributes.addFlashAttribute("msgNewUsr","You Look Like a new Customer Here! Sign up First!");
             return "redirect:/register";
         }
         else {
             if (!user.getPassword().equals(userFromDb.getPassword())){
-                session.setAttribute("msgPwError", "Wrong Password - Try Again!");
+                redirectAttributes.addFlashAttribute("msgPwError","Incorrect Password");
                 return "redirect:/login";
             }
             else {
-                System.out.println("authority :"+ userFromDb.getAuthority());
-                if (userFromDb.getAuthority().equals("ADMIN")){
+                System.out.println("role :"+ userFromDb.getRole());
+
+                if (userFromDb.getRole().equals("ADMIN")){
                     session.setAttribute("admin",userFromDb);
-                    return "redirect:/menu";
                 }
-                session.setAttribute("user",userFromDb);
-                session.setAttribute("msgSuccess", "Welcome Back! :3");
+                else {
+                    session.setAttribute("customer",userFromDb);
+                }
+                redirectAttributes.addFlashAttribute("msgSuccess","Welcome Back !");
                 return "redirect:/menu";
             }
         }
     }
 
 
+
     //register before checkout
     @GetMapping("/register")
-    public String regGet(Model model) {
+    public String showRegForm(Model model) {
         model.addAttribute("user",new User());
         return "user/register";
     }
     @PostMapping("/register")
-    public String regPost(Model model , @Valid User user , BindingResult brs,HttpServletRequest request) throws IOException {
+    public String regPost(@ModelAttribute("user") @Validated User user , BindingResult brs,HttpServletRequest request , RedirectAttributes redirectAttributes) throws IOException {
+
         if (brs.hasErrors()){
             return "user/register";
         }
-        user.setAuthority("USER");
+        user.setRole("USER"); //every register should user
 
         int result = userImpl.createUser(user);
         System.out.println(result);
         if (result > 0){
             System.out.println("success");
-            return "menu";
+             redirectAttributes.addFlashAttribute("msgSuccess","Welcome Back !");
+            return "redirect:/menu";
         }
         return "user/register";
     }
@@ -99,7 +107,7 @@ public class UserController {
         return "admin/view_all_customer";
     }
 
-    //admin logout
+    //logout
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession();

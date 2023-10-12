@@ -5,7 +5,7 @@ function requestProduct() {
     console.log(items);
 
     $.ajax({
-        url: "/cart",
+        url: "/cart", //to card controller
         type: "post",
         data: {
             items : JSON.stringify(items)
@@ -25,28 +25,28 @@ requestProduct();
 function loadToShowProduct() {
     let tableData = "";
     let gTotal = 0;
-    responseItems.forEach((menu,i)=>{
+    responseItems.forEach((menu_item,i)=>{
         const count = i + 1;
         tableData += `<tr>
 				<td>${count}</td>
-				<td>${menu.product_name}</td>
-				<td>$ ${menu.product_price}</td>
+				<td>${menu_item.item}</td>
+				<td>$ ${menu_item.price}</td>
 				<td>
-					<button class="btn btn-danger btn-sm" onclick="Remove1Item(${menu.id})">
+					<button class="btn btn-danger btn-sm" onclick="Remove1Item(${menu_item.id})">
 						<i class="fa fa-minus"></i>
 					</button>
-					 <span>${getItemCount(menu.id)}</span>
-					<button class="btn btn-primary btn-sm" onclick="add1Item(${menu.id})">
+					 <span>${getItemCount(menu_item.id)}</span>
+					<button class="btn btn-primary btn-sm" onclick="add1Item(${menu_item.id})">
 						<i class="fa fa-plus"></i>
 					</button>
 					
-					<button class="btn btn-warning btn-sm" onclick="delete1item(${menu.id})">
+					<button class="btn btn-warning btn-sm" onclick="delete1item(${menu_item.id})">
 						<i class="fa fa-trash"></i>
 					</button>
 				</td>
-				 <td>$ ${getItemCount(menu.id) * menu.product_price}</td>
+				 <td>$ ${getItemCount(menu_item.id) * menu_item.price}</td>
 			</tr>`;
-        gTotal += getItemCount(menu.id) * menu.product_price;
+        gTotal += getItemCount(menu_item.id) * menu_item.price;
     });
     tableData += `<tr>
 				<td colspan="4" class="text-right">Grand Total</td>

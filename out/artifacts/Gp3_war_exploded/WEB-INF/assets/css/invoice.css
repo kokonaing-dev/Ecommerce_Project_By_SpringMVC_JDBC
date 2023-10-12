@@ -1,193 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Redressed&family=Ubuntu:wght@400;700&display=swap");
+
 :root {
-    --body-bg: rgb(204, 204, 204);
-    --white: #ffffff;
-    --darkWhite: #ccc;
-    --black: #000000;
-    --dark: #615c60;
-    --themeColor: #22b8d1;
-    --pageShadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    --bg-clr: #ead376;
+    --white: #fff;
+    --primary-clr: #2f2929;
+    --secondary-clr: #5265a7;
 }
 
-/* Font Include */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+}
 
 body {
-    background-color: var(--body-bg);
+    background: var(--bg-clr);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--primary-clr);
+    padding: 0 20px;
 }
 
-.page {
+.invoice {
+    width: 600px;
+    max-width: 100%;
+    height: auto;
     background: var(--white);
-    display: block;
-    margin: 0 auto;
+    padding: 50px 60px;
     position: relative;
-    box-shadow: var(--pageShadow);
+    margin: 20px auto;
 }
 
-.page[size="A4"] {
-    width: 21cm;
-    height: 29.7cm;
-    overflow: hidden;
+.w_15 {
+    width: 15%;
 }
 
-.bb {
-    border-bottom: 3px solid var(--darkWhite);
+.w_50 {
+    width: 50%;
 }
 
-/* Top Section */
-.top-content {
-    padding-bottom: 15px;
+.w_55 {
+    width: 55%;
 }
 
-.logo img {
-    height: 60px;
+.p_title {
+    font-weight: 700;
+    font-size: 14px;
 }
 
-.top-left p {
-    margin: 0;
+.i_row {
+    display: flex;
 }
 
-.top-left .graphic-path {
-    height: 40px;
-    position: relative;
+.text_right {
+    text-align: right;
 }
 
-.top-left .graphic-path::before {
-    content: "";
-    height: 20px;
-    background-color: var(--dark);
-    position: absolute;
-    left: 15px;
-    right: 0;
-    top: -15px;
-    z-index: 2;
+.invoice .header .i_row {
+    justify-content: space-between;
+    margin-bottom: 30px;
 }
 
-.top-left .graphic-path::after {
-    content: "";
-    height: 22px;
-    width: 17px;
-    background: var(--black);
-    position: absolute;
-    top: -13px;
-    left: 6px;
-    transform: rotate(45deg);
+.invoice .header .i_row:last-child {
+    align-items: flex-end;
 }
 
-.top-left .graphic-path p {
+.invoice .header .i_row .i_logo p {
+    font-family: "Redressed", cursive;
+}
+
+.invoice .header .i_row .i_logo p,
+.invoice .header .i_row .i_title h2 {
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--secondary-clr);
+}
+
+.invoice .header .i_row .i_address .p_title span {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.invoice .body .i_table .i_col p {
+    font-weight: 700;
+}
+
+.invoice .body .i_table .i_row .i_col {
+    padding: 12px 5px;
+}
+
+.invoice .body .i_table .i_table_head .i_row {
+    border: 2px solid;
+    border-color: var(--primary-clr) transparent var(--primary-clr) transparent;
+}
+
+.invoice .body .i_table .i_table_body .i_row:last-child {
+    border-bottom: 2px solid var(--primary-clr);
+}
+
+.invoice .body .i_table .i_table_foot .grand_total_wrap {
+    margin-top: 20px;
+}
+
+.invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total {
+    background: var(--secondary-clr);
     color: var(--white);
-    height: 40px;
-    left: 0;
-    right: -100px;
-    text-transform: uppercase;
-    background-color: var(--themeColor);
-    font: 26px;
-    z-index: 3;
-    position: absolute;
-    padding-left: 10px;
+    padding: 10px 15px;
 }
 
-/* User Store Section */
-.store-user {
-    padding-bottom: 25px;
+.invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total p {
+    display: flex;
+    justify-content: space-between;
 }
 
-.store-user p {
-    margin: 0;
-    font-weight: 600;
-}
-
-.store-user .address {
-    font-weight: 400;
-}
-
-.store-user h2 {
-    color: var(--themeColor);
-    font-family: 'Rajdhani', sans-serif;
-}
-
-.extra-info p span {
-    font-weight: 400;
-}
-
-/* Product Section */
-thead {
-    color: var(--white);
-    background: var(--themeColor);
-}
-
-.table td,
-.table th {
-    text-align: center;
-    vertical-align: middle;
-}
-
-tr th:first-child,
-tr td:first-child {
-    text-align: left;
-}
-
-.media img {
-    height: 60px;
-    width: 60px;
-}
-
-.media p {
-    font-weight: 400;
-    margin: 0;
-}
-
-.media p.title {
-    font-weight: 600;
-}
-
-/* Balance Info Section */
-.balance-info .table td,
-.balance-info .table th {
-    padding: 0;
-    border: 0;
-}
-
-.balance-info tr td:first-child {
-    font-weight: 600;
-}
-
-tfoot {
-    border-top: 2px solid var(--darkWhite);
-}
-
-tfoot td {
-    font-weight: 600;
-}
-
-/* Cart BG */
-.cart-bg {
-    height: 250px;
-    bottom: 32px;
-    left: -40px;
-    opacity: 0.3;
-    position: absolute;
-}
-
-/* Footer Section */
-footer {
-    text-align: center;
-    position: absolute;
-    bottom: 30px;
-    left: 75px;
-}
-
-footer hr {
-    margin-bottom: -22px;
-    border-top: 3px solid var(--darkWhite);
-}
-
-footer a {
-    color: var(--themeColor);
-}
-
-footer p {
-    padding: 6px;
-    border: 3px solid var(--darkWhite);
-    background-color: var(--white);
-    display: inline-block;
+.invoice .footer {
+    margin-top: 30px;
 }

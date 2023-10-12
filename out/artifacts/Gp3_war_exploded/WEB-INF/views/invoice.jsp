@@ -1,168 +1,157 @@
-<%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: User
-  Date: 9/17/2023
-  Time: 2:18 AM
+  Date: 9/27/2023
+  Time: 12:58 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../assets/css/invoice.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/invoice.css">
+    <style>
+        .btn{
+            display: block;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
-<div class="my-5 page" size="A4">
-    <div class="p-5">
-
-        <section class="top-content bb d-flex justify-content-between">
-            <div class="logo">
-                <img src="../assets/imgs/logo.png" alt="" class="img-fluid">
-            </div>
-            <div class="top-left">
-                <div class="graphic-path">
-                    <p>Invoice</p>
+<%
+    Date date = new Date();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+    String currentDate = simpleDateFormat.format(date);
+%>
+<section>
+    <div class="invoice">
+        <div class="header">
+            <div class="i_row">
+                <div class="i_logo">
+                    <p>Ngo Yin Sarr</p>
                 </div>
-                <div class="position-relative">
-                    <p>Invoice No. <span>${orders.id}</span></p>
-                </div>
-            </div>
-        </section>
-
-        <section class="store-user mt-5">
-            <div class="col-10">
-                <div class="row bb pb-3">
-                    <div class="col-7">
-                        <p>Supplier,</p>
-                        <h2>Ngo Yin Sarr</h2>
-                        <p class="address"> , <br> Insein Road, <br>MPT Construction 9th Floor </p>
-                        <div class="txn mt-2">TXN: XXXXXXX</div>
-                    </div>
-                    <div class="col-5">
-                        <p>Client,</p>
-                        <h2>${user.name}</h2>
-                        <p class="address"> ${orders.address} <br> Abington MA 2351, <br>Phone Number </p>
-                        <div class="txn mt-2">Order Id</div>
-                    </div>
-                </div>
-                <div class="row extra-info pt-3">
-                    <div class="col-7">
-                        <p>Payment Method: <span>Don,t Have Yet</span></p>
-                        <p>Order Number: <span>#${orders.id}</span></p>
-                    </div>
-                    <div class="col-5">
-                        <p>Deliver Date: <span>${orders.date}</span></p>
-                    </div>
+                <div class="i_title">
+                    <h2>INVOICE</h2>
+                    <p class="p_title text_right">
+                        <%= currentDate%>
+                    </p>
                 </div>
             </div>
-        </section>
-
-        <section class="product-area mt-4">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <td>Item Description</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>Total</td>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr>
-                    <td>
-                        <div class="media">
-                            <img class="mr-3 img-fluid" src="mobile.jpg" alt="Product 01">
-                            <div class="media-body">
-                                <p class="mt-0 title">Media heading</p>
-                                Cras sit amet nibh libero, in gravida nulla.
-                            </div>
+            <div class="i_row">
+                <div class="i_number">
+                    <p class="p_title">INVOICE NO: ${order.id}</p>
+                </div>
+                <div class="i_address text_right">
+                    <p>TO</p>
+                    <p class="p_title">
+                        Fac${customer.name}<br />
+                        <span>${order.address}</span><br />
+                        <span>${order.phone}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="i_table">
+                <div class="i_table_head">
+                    <div class="i_row">
+                        <div class="i_col w_15">
+                            <p class="p_title">NO.</p>
                         </div>
-                    </td>
-                    <td>200$</td>
-                    <td>1</td>
-                    <td>200$</td>
-                </tr>
-
-                </tbody>
-            </table>
-        </section>
-
-        <section class="balance-info">
-            <div class="row">
-                <div class="col-8">
-                    <p class="m-0 font-weight-bold"> Note: </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In delectus, adipisci vero est dolore praesentium.</p>
+                        <div class="i_col w_15">
+                            <p class="p_title">Item</p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p class="p_title">QTY</p>
+                        </div>
+                        <div class="i_col w_55">
+                            <p class="p_title">DESCRIPTION</p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p class="p_title">PRICE</p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p class="p_title">TOTAL</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <table class="table border-0 table-hover">
-                        <tr>
-                            <td>Sub Total:</td>
-                            <td>800$</td>
-                        </tr>
-                        <tr>
-                            <td>Tax:</td>
-                            <td>15$</td>
-                        </tr>
-                        <tr>
-                            <td>Deliver:</td>
-                            <td>10$</td>
-                        </tr>
-                        <tfoot>
-                        <tr>
-                            <td>Total:</td>
-                            <td>825$</td>
-                        </tr>
-                        </tfoot>
-                    </table>
+                <div class="i_table_body">
 
-                    <!-- Signature -->
-                    <div class="col-12">
-                        <img src="signature.png" class="img-fluid" alt="">
-                        <p class="text-center m-0"> Director Signature </p>
+                    <c:forEach var="orderDetail" items="${orderDetail}" varStatus="loop">
+                    <div class="i_row">
+                        <div class="i_col w_15">
+                            <p>${loop.index+1}</p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p><img src="../assets/imgs/${orderDetail.image}" height="40" width="40"></p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p>${orderDetail.quantity}</p>
+                        </div>
+                        <div class="i_col w_55">
+                            <p>${orderDetail.item}</p>
+                            <span>${orderDetail.content}</span>
+                        </div>
+                        <div class="i_col w_15">
+                            <p>$ ${orderDetail.price}</p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p>${orderDetail.quantity * orderDetail.price}</p>
+                        </div>
+                    </div>
+
+                    </c:forEach>
+                </div>
+                <div class="i_table_foot">
+                    <div class="i_row">
+                        <div class="i_col w_15">
+                            <p></p>
+                        </div>
+                        <div class="i_col w_55">
+                            <p></p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p>Sub Total</p>
+                            <p>Tax 10%</p>
+                        </div>
+                        <div class="i_col w_15">
+                            <p>$ ${order.total}</p>
+                            <p>$ ${order.total*0.10}</p>
+                        </div>
+                    </div>
+                    <div class="i_row grand_total_wrap">
+                        <div class="i_col w_50">
+                        </div>
+                        <div class="i_col w_50 grand_total">
+                            <p><span>GRAND TOTAL:</span>
+                                <span>$ ${order.total + (order.total*0.10) }</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Cart BG -->
-        <img src="../assets/imgs/cart.jpg" class="img-fluid cart-bg" alt="">
-
-        <footer>
-            <hr>
-            <p class="m-0 text-center">
-                View THis Invoice Online At - <a href="#!"> invoice/saburbd.com/#868 </a>
-            </p>
-            <div class="social pt-3">
-                    <span class="pr-2">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span>0123456789</span>
-                    </span>
-                <span class="pr-2">
-                        <i class="fas fa-envelope"></i>
-                        <span>me@saburali.com</span>
-                    </span>
-                <span class="pr-2">
-                        <i class="fab fa-facebook-f"></i>
-                        <span>/sabur.7264</span>
-                    </span>
-                <span class="pr-2">
-                        <i class="fab fa-youtube"></i>
-                        <span>/abdussabur</span>
-                    </span>
-                <span class="pr-2">
-                        <i class="fab fa-github"></i>
-                        <span>/example</span>
-                    </span>
+        </div>
+        <div class="footer">
+            <div class="i_row">
+                <div class="i_col w_50">
+<%--                    payment?--%>
+                    <p class="p_title">Payment Method</p>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque, dicta distinctio! Laudantium voluptatibus est nemo.</p>
+                </div>
+                <div class="i_col w_50 text_right">
+                    <p class="p_title">Terms and Conditions</p>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque, dicta distinctio! Laudantium voluptatibus est nemo.</p>
+                </div>
             </div>
-        </footer>
-    </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </div>
+    </div>
+    <div class="btn">
+        <button onclick="location.href='/'">Home</button>
+    </div>
+</section>
 </body>
 </html>

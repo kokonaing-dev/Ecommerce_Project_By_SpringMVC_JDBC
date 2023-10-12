@@ -70,4 +70,16 @@ public class Orders {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", date=" + date +
+                ", total=" + total +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
 }

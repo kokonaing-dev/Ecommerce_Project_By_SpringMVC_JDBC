@@ -13,7 +13,7 @@ public class User {
 
     private int id;
 
-//    @NotNull(message = "is required")
+//    @NotEmpty(message = "is required")
 //    @Size(min =1 ,max =20 ,message = "Name must be between 1 and 20")
     private String name;
 

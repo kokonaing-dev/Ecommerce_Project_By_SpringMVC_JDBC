@@ -2,10 +2,12 @@ package gp3.impls;
 
 import gp3.daos.OrderDetailDao;
 import gp3.helpers.DBHelpers;
+import gp3.models.Invoice;
 import gp3.models.OrderDetail;
 import gp3.models.Orders;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,28 +38,31 @@ public class OrderDetailImpl implements OrderDetailDao {
         return status;
     }
 
-    //    //didn't even use
+    //invoice
     @Override
-    public List<OrderDetail> getAllOrders() {
+    public List<Invoice> getOrderDetailByOrderId(int id) {
         ResultSet rs ;
-        List<OrderDetail> orderDetailList = new ArrayList<>();
+        List<Invoice> invoices = new ArrayList<>();
         Connection con = DBHelpers.getInstance().getConnection();
-        String query = "SELECT * FROM order_detail ";
+        String query = "SELECT * FROM order_detail " +
+                "INNER JOIN menu_item ON order_detail.menu_item_id = menu_item.id WHERE order_id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1,id);
             rs = ps.executeQuery();
             while (rs.next()){
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setId(rs.getInt("id"));
-                orderDetail.setQuantity(rs.getInt("quantity"));
-                orderDetail.setMenu_item_id(rs.getInt("menu_item_id"));
-                orderDetail.setOrder_id(rs.getInt("order_id"));
-                orderDetailList.add(orderDetail);
+                Invoice invoice = new Invoice();
+                invoice.setItem(rs.getString("item"));
+                invoice.setImage(rs.getString("image"));
+                invoice.setPrice(rs.getString("price"));
+                invoice.setContent(rs.getString("content"));
+                invoice.setQuantity(rs.getInt("quantity"));
+                invoices.add(invoice);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return orderDetailList;
+        return invoices;
     }
 
 //    @Override

@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
         <label for="phone">Phone</label>
-        <form:input type="text" class="form-control" id="phone" placeholder="0949500123" path="phone"/>
+        <form:input type="tel" class="form-control" id="phone" placeholder="0949500123" path="phone"/>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form:form>

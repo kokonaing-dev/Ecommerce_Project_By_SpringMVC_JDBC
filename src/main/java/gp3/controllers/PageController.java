@@ -48,11 +48,6 @@ public class PageController {
         return "payment";
     }
 
-    @RequestMapping("/invoice")
-    public String invoice(){
-        return "invoice";
-    }
-
     @RequestMapping("/admin_home")
     public String adminHome(){
         return "admin/admin_home";

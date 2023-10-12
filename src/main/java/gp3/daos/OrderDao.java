@@ -10,7 +10,7 @@ public interface OrderDao {
 
 //    List<Orders> getOrderByUser_id(int id);
 
-    int updateNullAddressAndPhone(String address , String phone);
+    int updateAddressAndPhoneAndReturnId(String address , String phone);
 
 //    List<Orders> getOrdersToDelivery();
 
@@ -18,7 +18,7 @@ public interface OrderDao {
 
     int createOrderAndReturnId(Orders order);
 
-    List<Orders> getOneOrderByUser_id(int id);
+    List<Orders> getOrderByUser_id(int id);
 
     int updateOrderGrandTotal(double grandTotal,int order_id);
 

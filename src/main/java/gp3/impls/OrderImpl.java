@@ -2,6 +2,7 @@ package gp3.impls;
 
 import gp3.daos.OrderDao;
 import gp3.helpers.DBHelpers;
+import gp3.models.Menu;
 import gp3.models.OrderDetail;
 import gp3.models.Orders;
 import gp3.models.User;
@@ -16,20 +17,46 @@ public class OrderImpl implements OrderDao {
 
 
     @Override
-    public int updateNullAddressAndPhone(String address, String phone) {
-        int result = 0 ;
+    public int updateAddressAndPhoneAndReturnId(String address, String phone) {
+        int updatedOrderId = -1;
         Connection con = DBHelpers.getInstance().getConnection();
-        String query = "UPDATE orders SET address = ? , phone = ? WHERE address is NULL AND phone is NULL ";
+        String query = "UPDATE orders SET address = ?, phone = ? WHERE address IS NULL AND phone IS NULL";
+
         try {
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1 ,address);
-            ps.setString(2 , phone);
-            result = ps.executeUpdate();
+            ps.setString(1, address);
+            ps.setString(2, phone);
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                updatedOrderId = getUpdatedOrderId(con, address, phone);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return updatedOrderId;
     }
+
+    private int getUpdatedOrderId(Connection con, String address, String phone) throws SQLException {
+        int updatedOrderId = -1;
+        String selectQuery = "SELECT id FROM orders WHERE address = ? AND phone = ?";
+        try (PreparedStatement selectPs = con.prepareStatement(selectQuery)) {
+            selectPs.setString(1, address);
+            selectPs.setString(2, phone);
+
+            try (ResultSet resultSet = selectPs.executeQuery()) {
+                if (resultSet.next()) {
+                    updatedOrderId = resultSet.getInt("id");
+                }
+            }
+        }
+        return updatedOrderId;
+    }
+
+
+
+
 
 
 //    @Override
@@ -114,7 +141,7 @@ public class OrderImpl implements OrderDao {
 
     //
     @Override
-    public List<Orders> getOneOrderByUser_id(int id) {
+    public List<Orders> getOrderByUser_id(int id) {
         ResultSet rs ;
         List<Orders> orders = new ArrayList<>();
         Connection con = DBHelpers.getInstance().getConnection();
@@ -153,5 +180,28 @@ public class OrderImpl implements OrderDao {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public Orders getOrderById(int id) {
+        ResultSet rs ;
+        Orders order = new Orders();
+        Connection connection = DBHelpers.getInstance().getConnection();
+        String query = "SELECT * FROM orders WHERE id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1,id);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                order.setId(rs.getInt("id"));
+                order.setDate(rs.getDate("date"));
+                order.setTotal(rs.getDouble("total"));
+                order.setAddress(rs.getString("address"));
+                order.setPhone(rs.getString("phone"));
+                order.setUser_id(rs.getInt("user_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
     }
 }

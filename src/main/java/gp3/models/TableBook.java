@@ -11,34 +11,7 @@ public class TableBook {
     public TableBook() {
     }
 
-    private String tablename,date,time,bname,phone,nog,sr;
-
-    public TableBook(String tablename, String date, String time, String bname, String phone, String nog, String sr) {
-        this.tablename = tablename;
-        this.date = date;
-        this.time = time;
-        this.bname = bname;
-        this.phone = phone;
-        this.nog = nog;
-        this.sr = sr;
-    }
-
-    public String getNog() {
-        return nog;
-    }
-
-    public void setNog(String nog) {
-        this.nog = nog;
-    }
-
-    public String getSr() {
-        return sr;
-    }
-
-    public void setSr(String sr) {
-        this.sr = sr;
-    }
-
+    private String tablename,date,time;
 
 
     public String getTablename() {
@@ -47,22 +20,6 @@ public class TableBook {
 
     public void setTablename(String tablename) {
         this.tablename = tablename;
-    }
-
-    public String getBname() {
-        return bname;
-    }
-
-    public void setBname(String bname) {
-        this.bname = bname;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public int getId() {
